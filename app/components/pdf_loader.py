@@ -1,5 +1,5 @@
 import os
-from langchain.community.document_loaders import DirectoryLoader, PyPDFLoader
+from langchain_community.document_loaders import DirectoryLoader, PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 from app.common.logger import get_logger
@@ -8,6 +8,7 @@ from app.common.custom_exception import CustomException
 from app.config.config import DATA_PATH, CHUNCK_SIZE, CHUNCK_OVERLAP
 
 logger = get_logger(__name__)
+
 
 def load_pdf_files(data_path):
     try:
