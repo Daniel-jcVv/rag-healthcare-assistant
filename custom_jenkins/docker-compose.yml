@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jenkins-cicd
+    privileged: true
+    user: root
+    ports:
+      - "8080:8080"   # Jenkins Web UI
+      - "50000:50000" # Jenkins Agent communication
+    volumes:
+      # Persist Jenkins data
+      - jenkins-data:/var/jenkins_home
+
+      # Docker socket for Docker-in-Docker
+      - /var/run/docker.sock:/var/run/docker.sock
+
+      # Optional: Mount workspace for faster builds
+      # - ./workspace:/var/jenkins_home/workspace
+    environment:
+      # Jenkins Configuration
+      - JENKINS_OPTS=--httpPort=8080
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false -Xmx2048m
+
+      # Docker Configuration
+      - DOCKER_HOST=unix:///var/run/docker.sock
+
+      # AWS Configuration (set these in .env file)
+      # - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      # - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      # - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-east-1}
+    networks:
+      - jenkins-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/login || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+networks:
+  jenkins-network:
+    driver: bridge
+
+volumes:
+  jenkins-data:
+    driver: local
