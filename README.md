@@ -368,19 +368,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Daniel Garcia Belman**
 - Email: danielgb331@outlook.com
 - GitHub: [@Daniel-jcVv](https://github.com/Daniel-jcVv/Daniel-jcVv)
-- LinkedIn: [Your LinkedIn](www.linkedin.com/in/daniel-garcía-belman-99a298aa)
+- LinkedIn: [My LinkenIn Profile](www.linkedin.com/in/daniel-garcía-belman-99a298aa)
 
 ---
 
-## 🙏 Acknowledgments
-
-- Grateful to God for wisdom and guidance throughout this project
-- Medical encyclopedia data from Gale Encyclopedia of Medicine (Second Edition)
-- Built with [LangChain](https://github.com/langchain-ai/langchain) framework
-- Embeddings by [HuggingFace](https://huggingface.co/) Transformers
-- Vector search powered by [FAISS](https://github.com/facebookresearch/faiss) from Meta AI
-
----
 
 ## 📬 Contact & Support
 
