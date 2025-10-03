@@ -34,7 +34,6 @@ venv.bak/
 .env
 .env.local
 .env.*.local
-.env.example
 
 # IDE
 .vscode/
@@ -82,10 +81,13 @@ logs/
 htmlcov/
 .tox/
 .nox/
+*.pyc
+__pycache__/
 
 # OS
 Thumbs.db
 .DS_Store
 
 info/
+RAG_Medical_Chatbot/
 
