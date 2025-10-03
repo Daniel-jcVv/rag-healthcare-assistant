@@ -19,6 +19,8 @@ A privacy-first, Retrieval-Augmented Generation (RAG) powered medical informatio
 - 🔧 **Local LLM Integration:** Uses Ollama with Llama 3.2 for privacy-focused, cost-free medical Q&A
 - 💬 **Modern Web UI:** Responsive chat interface with source citation display
 - 📚 **Intelligent Document Processing:** Text chunking with overlap for context preservation
+- 🚀 **CI/CD Pipeline:** Jenkins automation with Trivy security scanning and dual-registry deployment
+- 🐳 **Multi-Registry Support:** Automated push to Docker Hub (public) and AWS ECR (private)
 - 🎓 **Best Practices:** Environment-based configuration, comprehensive documentation
 
 ---
@@ -287,10 +289,12 @@ For detailed instructions, see [Installation Guide](docs/setup/installation.md).
 
 
 ### Infrastructure
-- Docker containerization
-- Unit and integration tests
-- Performance optimization and caching
-- CI/CD pipeline
+- [x] Docker multi-stage production build
+- [x] Jenkins CI/CD pipeline (6 stages: Checkout, Build, Scan, Push, Deploy, Cleanup)
+- [x] Trivy container security scanning
+- [x] Dual-registry deployment (Docker Hub + AWS ECR)
+- [ ] Unit and integration tests
+- [ ] Performance optimization and caching
 
 ### Advanced Features
 - Multi-document support with metadata
