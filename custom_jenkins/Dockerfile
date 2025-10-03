@@ -55,20 +55,20 @@ RUN mkdir -p /var/run
 USER jenkins
 
 # Install Jenkins plugins (using jenkins-plugin-cli)
+# Let jenkins-plugin-cli auto-resolve dependencies by not specifying versions
 RUN jenkins-plugin-cli --plugins \
-    docker-workflow:572.v950f58993843 \
-    docker-plugin:1.6.2 \
-    github:1.39.0 \
-    git:5.5.2 \
-    workflow-aggregator:600.vb_57cdd26fdd7 \
-    pipeline-stage-view:2.34 \
-    credentials-binding:681.vf91669a_32e45 \
-    amazon-ecr:1.77.v60e7d31d66c6 \
-    cloudbees-folder:6.942.vb_43318a_156b_2 \
-    timestamper:1.27 \
-    build-timeout:1.33 \
-    ws-cleanup:0.46 \
-    ansicolor:1.0.4
+    docker-workflow \
+    docker-plugin \
+    github \
+    git \
+    workflow-aggregator \
+    pipeline-stage-view \
+    credentials-binding \
+    amazon-ecr \
+    timestamper \
+    build-timeout \
+    ws-cleanup \
+    ansicolor
 
 # Expose Jenkins ports
 # 8080: Web UI
