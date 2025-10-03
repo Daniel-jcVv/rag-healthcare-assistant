@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical AI Assistant - Healthcare Q&A System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                <span class="header-icon">🏥</span>
+                Medical AI Assistant
+            </h1>
+            <p>Ask medical questions and get AI-powered answers based on medical knowledge</p>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="chat-container" id="chatContainer">
+            <div class="welcome-message" id="welcomeMessage">
+                <h2>👋 Welcome to Medical AI Assistant</h2>
+                <p>I'm here to help answer your medical questions using advanced AI and a comprehensive medical knowledge base.</p>
+                <p><strong>Try asking:</strong></p>
+                <div class="example-questions">
+                    <div class="example-question" onclick="askExample('What is diabetes?')">
+                        💊 What is diabetes?
+                    </div>
+                    <div class="example-question" onclick="askExample('What are the symptoms of hypertension?')">
+                        🩺 What are the symptoms of hypertension?
+                    </div>
+                    <div class="example-question" onclick="askExample('How to prevent heart disease?')">
+                        ❤️ How to prevent heart disease?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typing Indicator -->
+            <div class="message bot typing-indicator" id="typingIndicator">
+                <div class="message-avatar">🤖</div>
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <div class="input-container">
+                <input
+                    type="text"
+                    id="userInput"
+                    placeholder="Ask a medical question..."
+                    autocomplete="off"
+                >
+                <button id="sendBtn" onclick="sendMessage()">
+                    Send
+                    <span>➤</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+</html>
