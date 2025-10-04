@@ -87,25 +87,29 @@ pipeline {
             }
         }
 
-        // STAGE 4: PUSH TO REGISTRIES (Docker Hub and AWS ECR)
-        // Currently disabled - will be enabled after testing basic pipeline
-        /*
+        // STAGE 4: PUSH TO DOCKER HUB
+        // Upload image to Docker Hub for public portfolio visibility
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    echo "Docker Hub push will be configured later"
-                }
-            }
-        }
+                    echo "Pushing image to Docker Hub..."
 
-        stage('Push to AWS ECR') {
-            steps {
-                script {
-                    echo "AWS ECR push will be configured later"
+                    withCredentials([usernamePassword(
+                        credentialsId: 'dockerhub-credentials',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_PASS'
+                    )]) {
+                        sh """
+                            echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin
+                            docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} \$DOCKER_USER/${DOCKER_IMAGE}:${DOCKER_TAG}
+                            docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} \$DOCKER_USER/${DOCKER_IMAGE}:latest
+                            docker push \$DOCKER_USER/${DOCKER_IMAGE}:${DOCKER_TAG}
+                            docker push \$DOCKER_USER/${DOCKER_IMAGE}:latest
+                        """
+                    }
                 }
             }
         }
-        */
 
         // STAGE 5: DEPLOY (Optional)
         // Deploy application using docker-compose
