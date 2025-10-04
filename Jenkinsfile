@@ -87,7 +87,7 @@ pipeline {
             }
         }
 
-        // STAGE 4: PUSH TO DOCKER HUB
+        // STAGE 4A: PUSH TO DOCKER HUB
         // Upload image to Docker Hub for public portfolio visibility
         stage('Push to Docker Hub') {
             steps {
@@ -105,6 +105,38 @@ pipeline {
                             docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} \$DOCKER_USER/${DOCKER_IMAGE}:latest
                             docker push \$DOCKER_USER/${DOCKER_IMAGE}:${DOCKER_TAG}
                             docker push \$DOCKER_USER/${DOCKER_IMAGE}:latest
+                        """
+                    }
+                }
+            }
+        }
+
+        // STAGE 4B: PUSH TO AWS ECR
+        // Upload image to AWS ECR for private registry and AWS deployment
+        stage('Push to AWS ECR') {
+            steps {
+                script {
+                    echo "Pushing image to AWS ECR..."
+
+                    withCredentials([
+                        string(credentialsId: 'aws-account-id', variable: 'AWS_ACCOUNT_ID'),
+                        aws(credentialsId: 'aws-credentials')
+                    ]) {
+                        sh """
+                            # Set ECR registry URL
+                            ECR_REGISTRY=\${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+
+                            # Login to AWS ECR
+                            aws ecr get-login-password --region ${AWS_REGION} | \
+                            docker login --username AWS --password-stdin \$ECR_REGISTRY
+
+                            # Tag for ECR
+                            docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} \$ECR_REGISTRY/${ECR_REPOSITORY}:${DOCKER_TAG}
+                            docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} \$ECR_REGISTRY/${ECR_REPOSITORY}:latest
+
+                            # Push to ECR
+                            docker push \$ECR_REGISTRY/${ECR_REPOSITORY}:${DOCKER_TAG}
+                            docker push \$ECR_REGISTRY/${ECR_REPOSITORY}:latest
                         """
                     }
                 }
