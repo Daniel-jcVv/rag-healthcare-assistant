@@ -13,11 +13,10 @@ pipeline {
         DOCKER_TAG = "${env.BUILD_NUMBER}"  // Dynamic tag: build-1, build-2, etc.
         DOCKER_REGISTRY = 'docker.io'        // Change to your registry (Docker Hub or AWS ECR)
 
-        // AWS ECR Configuration (uncomment if using AWS)
-        // AWS_REGION = 'us-east-1'
-        // AWS_ACCOUNT_ID = '123456789012'
-        // ECR_REGISTRY = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
-        // ECR_REPOSITORY = 'medical-rag-chatbot'
+        // AWS ECR Configuration (will be configured when AWS is ready)
+        AWS_REGION = 'us-east-1'
+        // AWS_ACCOUNT_ID will be set via credentials in the Push to AWS ECR stage
+        ECR_REPOSITORY = 'medical-rag-chatbot'
 
         // Trivy scan configuration
         TRIVY_SEVERITY = 'HIGH,CRITICAL'     // Only report high/critical vulnerabilities
@@ -88,52 +87,25 @@ pipeline {
             }
         }
 
-        // STAGE 4: PUSH TO REGISTRY
-        // Upload image to Docker Registry (Docker Hub or AWS ECR)
-        stage('Push to Registry') {
+        // STAGE 4: PUSH TO REGISTRIES (Docker Hub and AWS ECR)
+        // Currently disabled - will be enabled after testing basic pipeline
+        /*
+        stage('Push to Docker Hub') {
             steps {
                 script {
-                    echo "Pushing image to registry..."
-
-                    // OPTION A: Docker Hub (requires credentials configured in Jenkins)
-                    // Go to Jenkins -> Credentials -> Add -> Username/Password
-                    // ID: 'dockerhub-credentials'
-                    withCredentials([usernamePassword(
-                        credentialsId: 'dockerhub-credentials',
-                        usernameVariable: 'DOCKER_USER',
-                        passwordVariable: 'DOCKER_PASS'
-                    )]) {
-                        sh """
-                            echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin
-                            docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_USER}/${DOCKER_IMAGE}:${DOCKER_TAG}
-                            docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_USER}/${DOCKER_IMAGE}:latest
-                            docker push ${DOCKER_USER}/${DOCKER_IMAGE}:${DOCKER_TAG}
-                            docker push ${DOCKER_USER}/${DOCKER_IMAGE}:latest
-                        """
-                    }
-
-                    // OPTION B: AWS ECR (uncomment if using AWS)
-                    // Requires AWS credentials configured in Jenkins
-                    /*
-                    withCredentials([aws(credentialsId: 'aws-credentials')]) {
-                        sh """
-                            # Login to AWS ECR
-                            aws ecr get-login-password --region ${AWS_REGION} | \
-                            docker login --username AWS --password-stdin ${ECR_REGISTRY}
-
-                            # Tag for ECR
-                            docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${ECR_REGISTRY}/${ECR_REPOSITORY}:${DOCKER_TAG}
-                            docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${ECR_REGISTRY}/${ECR_REPOSITORY}:latest
-
-                            # Push to ECR
-                            docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:${DOCKER_TAG}
-                            docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:latest
-                        """
-                    }
-                    */
+                    echo "Docker Hub push will be configured later"
                 }
             }
         }
+
+        stage('Push to AWS ECR') {
+            steps {
+                script {
+                    echo "AWS ECR push will be configured later"
+                }
+            }
+        }
+        */
 
         // STAGE 5: DEPLOY (Optional)
         // Deploy application using docker-compose

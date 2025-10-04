@@ -86,6 +86,35 @@ aws-cli/2.x.x
 
 ## 🔧 Configuration
 
+### Docker Hub Credentials
+
+#### Add to Jenkins (Recommended)
+
+1. Go to **Jenkins → Manage Jenkins → Credentials**
+2. Add **Username with password**
+   - **ID:** `dockerhub-credentials`
+   - **Username:** Your Docker Hub username
+   - **Password:** Your Docker Hub access token (not password!)
+3. Use in Jenkinsfile:
+   ```groovy
+   withCredentials([usernamePassword(
+       credentialsId: 'dockerhub-credentials',
+       usernameVariable: 'DOCKER_USER',
+       passwordVariable: 'DOCKER_PASS'
+   )]) {
+       sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+   }
+   ```
+
+**Create Docker Hub Access Token:**
+1. Go to: https://hub.docker.com/settings/security
+2. Click "New Access Token"
+3. Name: `jenkins-ci`
+4. Permissions: Read, Write, Delete
+5. Copy token and save in Jenkins credentials
+
+---
+
 ### AWS Credentials
 
 #### Option 1: Environment Variables (docker-compose.yml)
@@ -183,7 +212,27 @@ pipeline {
             }
         }
 
-        stage('Push to ECR') {
+        stage('Push to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-credentials',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    script {
+                        sh """
+                            echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin
+                            docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} \$DOCKER_USER/${DOCKER_IMAGE}:${DOCKER_TAG}
+                            docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} \$DOCKER_USER/${DOCKER_IMAGE}:latest
+                            docker push \$DOCKER_USER/${DOCKER_IMAGE}:${DOCKER_TAG}
+                            docker push \$DOCKER_USER/${DOCKER_IMAGE}:latest
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Push to AWS ECR') {
             steps {
                 withCredentials([aws(credentialsId: 'aws-credentials')]) {
                     script {
@@ -194,7 +243,11 @@ pipeline {
                             docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} \
                             ${ECR_REGISTRY}/${ECR_REPO}:${DOCKER_TAG}
 
+                            docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} \
+                            ${ECR_REGISTRY}/${ECR_REPO}:latest
+
                             docker push ${ECR_REGISTRY}/${ECR_REPO}:${DOCKER_TAG}
+                            docker push ${ECR_REGISTRY}/${ECR_REPO}:latest
                         """
                     }
                 }
