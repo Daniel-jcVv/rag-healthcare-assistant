@@ -48,6 +48,20 @@ A privacy-first, Retrieval-Augmented Generation (RAG) powered medical informatio
 
 ## 🎬 Demo
 
+### CI/CD Pipeline in Action
+
+**Jenkins Pipeline (6 Stages)**
+
+![Jenkins Pipeline Success](docs/images/jenkins-pipeline-success.png)
+
+**Docker Hub Public Repository**
+
+![Docker Hub Repository](docs/images/docker-hub-repo.png)
+
+**AWS ECR Private Registry**
+
+![AWS ECR Repository](docs/images/aws-ecr-image.png)
+
 ### Sample Query & Response
 
 **Question:** "What is diabetes?"
@@ -61,8 +75,6 @@ A privacy-first, Retrieval-Augmented Generation (RAG) powered medical informatio
 3. The_GALE_ENCYCLOPEDIA_of_MEDICINE_SECOND.pdf (Page 441)
 
 **Response Time:** ~10 seconds (local CPU inference)
-
-> 📹 **[Demo Video/GIF Coming Soon]** - Recording a screencast of the chat interface in action.
 
 ---
 
