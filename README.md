@@ -6,6 +6,10 @@ A privacy-first, Retrieval-Augmented Generation (RAG) powered medical informatio
 
 [![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![LangChain](https://img.shields.io/badge/LangChain-0.3-green.svg)](https://github.com/langchain-ai/langchain)
+[![Docker](https://img.shields.io/badge/Docker-Available-2496ED?logo=docker&logoColor=white)](https://hub.docker.com/r/beitmidrash/medical-rag-chatbot)
+[![Docker Image Size](https://img.shields.io/docker/image-size/beitmidrash/medical-rag-chatbot/latest)](https://hub.docker.com/r/beitmidrash/medical-rag-chatbot)
+[![CI/CD](https://img.shields.io/badge/CI%2FCD-Jenkins-D24939?logo=jenkins&logoColor=white)](https://jenkins.io/)
+[![Security](https://img.shields.io/badge/Security-Trivy-1904DA?logo=aqua&logoColor=white)](https://trivy.dev/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Active-green.svg)](https://github.com/Daniel-jcVv/rag-healthcare-assistant)
 
@@ -185,97 +189,48 @@ Comprehensive technical documentation available:
 
 ### Quick Start
 
-#### 1. Install Ollama and Model
+**Using Docker (Recommended):**
 
 ```bash
-# Install Ollama (Linux/macOS)
-curl -fsSL https://ollama.com/install.sh | sh
+docker pull beitmidrash/medical-rag-chatbot:latest
+docker run -d -p 5000:5000 beitmidrash/medical-rag-chatbot:latest
+# Visit http://localhost:5000
+```
 
-# Download Llama 3.2 model (2GB)
+**Local Setup:**
+
+```bash
+# 1. Install Ollama and pull Llama 3.2
+curl -fsSL https://ollama.com/install.sh | sh
 ollama pull llama3.2:latest
 
-# Verify Ollama is running
-ollama list
-```
-
-#### 2. Clone and Setup Project
-
-```bash
-# Clone the repository
+# 2. Setup project
 git clone https://github.com/Daniel-jcVv/rag-healthcare-assistant.git
-cd medical-rag-chatbot
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
+cd medical-rag-chatbot && python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
+
+# 3. Run
+python -m app.application  # Visit http://localhost:5000
 ```
 
-#### 3. Configure Environment
+See [Installation Guide](docs/setup/installation.md) for details.
 
-```bash
-# Copy environment template
-cp .env.example .env
+---
 
-# Edit .env (Ollama config is already set with defaults)
-# Optional: Add HuggingFace token for embeddings
+## 🔄 CI/CD Pipeline
+
+```
+┌──────────┐   ┌───────┐   ┌──────────┐   ┌─────────────┐   ┌────────┐   ┌─────────┐
+│ Checkout │ → │ Build │ → │  Trivy   │ → │ Push to Hub │ → │ Deploy │ → │ Cleanup │
+│   SCM    │   │ Image │   │   Scan   │   │  & AWS ECR  │   │ (main) │   │ Images  │
+└──────────┘   └───────┘   └──────────┘   └─────────────┘   └────────┘   └─────────┘
 ```
 
-#### 4. Process Medical Documents
-
-```bash
-# Place your PDF files in data/ directory
-# Then process them into vector store:
-python -m app.components.data_loader
-```
-
-#### 5. Run the Application
-
-```bash
-# Start Flask server
-python -m app.application
-
-# Open browser to http://localhost:5000
-```
-
-### Usage Examples
-
-**Ask Medical Questions:**
-
-Open http://localhost:5000 and ask questions like:
-- "What is diabetes?"
-- "What are the symptoms of hypertension?"
-- "How is asthma treated?"
-
-The system will:
-1. Search the vector store for relevant medical document chunks
-2. Send context + question to Ollama (Llama 3.2)
-3. Display the answer with source citations
-
-**API Endpoint:**
-
-```bash
-curl -X POST http://localhost:5000/query \
-  -H "Content-Type: application/json" \
-  -d '{"question": "What is diabetes?"}'
-```
-
-Response:
-```json
-{
-  "success": true,
-  "answer": "Diabetes mellitus is a chronic disease...",
-  "sources": [
-    {"document": "medical_encyclopedia.pdf", "page": "435"}
-  ]
-}
-```
-
-For detailed instructions, see [Installation Guide](docs/setup/installation.md).
-
-
+**Key Features:**
+- ✅ Multi-registry deployment ([Docker Hub](https://hub.docker.com/r/beitmidrash/medical-rag-chatbot) + AWS ECR)
+- ✅ Security scanning with Trivy (0 HIGH/CRITICAL vulnerabilities)
+- ✅ Multi-stage Docker builds (600MB optimized image)
+- ✅ Automated builds on GitHub push
 
 ---
 

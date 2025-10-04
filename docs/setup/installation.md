@@ -6,7 +6,24 @@ This guide walks you through setting up the Medical AI Assistant on your local m
 
 ---
 
-## Prerequisites
+## Quick Start with Docker (Recommended)
+
+**Pull and run from Docker Hub:**
+
+```bash
+docker pull beitmidrash/medical-rag-chatbot:latest
+docker run -d -p 5000:5000 beitmidrash/medical-rag-chatbot:latest
+```
+
+Visit http://localhost:5000
+
+**Docker Hub:** https://hub.docker.com/r/beitmidrash/medical-rag-chatbot
+
+---
+
+## Local Development Setup
+
+### Prerequisites
 
 Before you begin, ensure you have the following installed:
 
