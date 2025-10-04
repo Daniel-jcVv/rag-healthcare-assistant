@@ -227,10 +227,11 @@ See [Installation Guide](docs/setup/installation.md) for details.
 ```
 
 **Key Features:**
-- ✅ Multi-registry deployment ([Docker Hub](https://hub.docker.com/r/beitmidrash/medical-rag-chatbot) + AWS ECR)
+- ✅ Multi-registry deployment: [Docker Hub](https://hub.docker.com/r/beitmidrash/medical-rag-chatbot) (public) + AWS ECR (private)
 - ✅ Security scanning with Trivy (0 HIGH/CRITICAL vulnerabilities)
-- ✅ Multi-stage Docker builds (600MB optimized image)
+- ✅ Multi-stage Docker builds (150MB compressed, 600MB extracted)
 - ✅ Automated builds on GitHub push
+- ✅ AWS ECR in Mexico Central region (mx-central-1)
 
 ---
 
