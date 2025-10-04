@@ -81,13 +81,17 @@ logs/
 htmlcov/
 .tox/
 .nox/
-*.pyc
-__pycache__/
+.hypothesis/
 
 # OS
 Thumbs.db
 .DS_Store
+*.DS_Store
 
+# Project specific
 info/
 RAG_Medical_Chatbot/
+
+# Jenkins
+custom_jenkins/jenkins_home/
 
