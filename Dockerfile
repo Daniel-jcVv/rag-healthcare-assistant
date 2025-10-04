@@ -49,10 +49,9 @@ COPY --from=builder /opt/venv /opt/venv
 COPY --chown=appuser:appuser app/ ./app/
 COPY --chown=appuser:appuser setup.py ./
 
-# Copy data and vectorstore (if exists)
-# Note: In production, these should be mounted as volumes
-COPY --chown=appuser:appuser data ./data
-COPY --chown=appuser:appuser vectorstore ./vectorstore
+# Create directories for data and vectorstore (mounted as volumes in production)
+RUN mkdir -p ./data ./vectorstore && \
+    chown -R appuser:appuser ./data ./vectorstore
 
 # Switch to non-root user
 USER appuser
