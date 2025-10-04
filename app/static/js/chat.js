@@ -3,14 +3,34 @@ const userInput = document.getElementById('userInput');
 const sendBtn = document.getElementById('sendBtn');
 const welcomeMessage = document.getElementById('welcomeMessage');
 const typingIndicator = document.getElementById('typingIndicator');
+const themeToggle = document.getElementById('themeToggle');
 
-// Allow Enter key to send message
+// Theme Management
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+}
+
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+}
+
+// Event Listeners
+themeToggle.addEventListener('click', toggleTheme);
+
 userInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         sendMessage();
     }
 });
+
+// Initialize theme on load
+initTheme();
 
 function askExample(question) {
     userInput.value = question;
@@ -82,8 +102,11 @@ function addMessage(text, sender, sources = null) {
     messageDiv.className = `message ${sender}`;
 
     const avatar = document.createElement('div');
-    avatar.className = 'message-avatar';
-    avatar.textContent = sender === 'user' ? '👤' : '🤖';
+    avatar.className = `message-avatar ${sender === 'bot' ? 'bot-avatar' : ''}`;
+
+    const avatarIcon = document.createElement('span');
+    avatarIcon.textContent = sender === 'user' ? '👤' : '🤖';
+    avatar.appendChild(avatarIcon);
 
     const content = document.createElement('div');
     content.className = 'message-content';

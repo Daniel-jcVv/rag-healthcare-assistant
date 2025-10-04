@@ -8,37 +8,49 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
+        <!-- Header with Theme Toggle -->
         <div class="header">
-            <h1>
-                <span class="header-icon">🏥</span>
-                Medical AI Assistant
-            </h1>
-            <p>Ask medical questions and get AI-powered answers based on medical knowledge</p>
+            <div class="header-content">
+                <h1>
+                    <span class="header-icon">🏥</span>
+                    Medical AI Assistant
+                </h1>
+                <p>Ask medical questions and get AI-powered answers based on medical knowledge</p>
+            </div>
+            <button class="theme-toggle" id="themeToggle" title="Toggle dark/light theme">
+                <span class="theme-icon light">☀️</span>
+                <span class="theme-icon dark">🌙</span>
+            </button>
         </div>
 
         <!-- Chat Container -->
         <div class="chat-container" id="chatContainer">
             <div class="welcome-message" id="welcomeMessage">
-                <h2>👋 Welcome to Medical AI Assistant</h2>
+                <div class="welcome-icon">🩺</div>
+                <h2>Welcome to Medical AI Assistant</h2>
                 <p>I'm here to help answer your medical questions using advanced AI and a comprehensive medical knowledge base.</p>
-                <p><strong>Try asking:</strong></p>
+                <p class="welcome-subtitle">Try asking:</p>
                 <div class="example-questions">
                     <div class="example-question" onclick="askExample('What is diabetes?')">
-                        💊 What is diabetes?
+                        <span class="example-icon">💊</span>
+                        <span>What is diabetes?</span>
                     </div>
                     <div class="example-question" onclick="askExample('What are the symptoms of hypertension?')">
-                        🩺 What are the symptoms of hypertension?
+                        <span class="example-icon">🩺</span>
+                        <span>What are the symptoms of hypertension?</span>
                     </div>
                     <div class="example-question" onclick="askExample('How to prevent heart disease?')">
-                        ❤️ How to prevent heart disease?
+                        <span class="example-icon">❤️</span>
+                        <span>How to prevent heart disease?</span>
                     </div>
                 </div>
             </div>
 
             <!-- Typing Indicator -->
             <div class="message bot typing-indicator" id="typingIndicator">
-                <div class="message-avatar">🤖</div>
+                <div class="message-avatar bot-avatar">
+                    <span>🤖</span>
+                </div>
                 <div class="typing-dots">
                     <span></span>
                     <span></span>
@@ -57,9 +69,12 @@
                     autocomplete="off"
                 >
                 <button id="sendBtn" onclick="sendMessage()">
-                    Send
-                    <span>➤</span>
+                    <span class="send-text">Send</span>
+                    <span class="send-icon">➤</span>
                 </button>
+            </div>
+            <div class="input-footer">
+                <small>Powered by RAG + Llama 3.2 | 100% Local & Private</small>
             </div>
         </div>
     </div>
