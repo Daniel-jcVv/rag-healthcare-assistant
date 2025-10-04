@@ -13,8 +13,8 @@ pipeline {
         DOCKER_TAG = "${env.BUILD_NUMBER}"  // Dynamic tag: build-1, build-2, etc.
         DOCKER_REGISTRY = 'docker.io'        // Change to your registry (Docker Hub or AWS ECR)
 
-        // AWS ECR Configuration (will be configured when AWS is ready)
-        AWS_REGION = 'us-east-1'
+        // AWS ECR Configuration
+        AWS_REGION = 'mx-central-1'
         // AWS_ACCOUNT_ID will be set via credentials in the Push to AWS ECR stage
         ECR_REPOSITORY = 'medical-rag-chatbot'
 
