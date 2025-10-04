@@ -13,10 +13,9 @@ pipeline {
         DOCKER_TAG = "${env.BUILD_NUMBER}"  // Dynamic tag: build-1, build-2, etc.
         DOCKER_REGISTRY = 'docker.io'        // Change to your registry (Docker Hub or AWS ECR)
 
-        // AWS ECR Configuration
+        // AWS ECR Configuration (will be configured when AWS is ready)
         AWS_REGION = 'us-east-1'
-        AWS_ACCOUNT_ID = credentials('aws-account-id')
-        ECR_REGISTRY = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+        // AWS_ACCOUNT_ID will be set via credentials in the Push to AWS ECR stage
         ECR_REPOSITORY = 'medical-rag-chatbot'
 
         // Trivy scan configuration
@@ -88,55 +87,25 @@ pipeline {
             }
         }
 
-        // STAGE 4A: PUSH TO DOCKER HUB
-        // Upload image to Docker Hub (public registry for portfolio visibility)
+        // STAGE 4: PUSH TO REGISTRIES (Docker Hub and AWS ECR)
+        // Currently disabled - will be enabled after testing basic pipeline
+        /*
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    echo "Pushing image to Docker Hub..."
-
-                    withCredentials([usernamePassword(
-                        credentialsId: 'dockerhub-credentials',
-                        usernameVariable: 'DOCKER_USER',
-                        passwordVariable: 'DOCKER_PASS'
-                    )]) {
-                        sh """
-                            echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin
-                            docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} \$DOCKER_USER/${DOCKER_IMAGE}:${DOCKER_TAG}
-                            docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} \$DOCKER_USER/${DOCKER_IMAGE}:latest
-                            docker push \$DOCKER_USER/${DOCKER_IMAGE}:${DOCKER_TAG}
-                            docker push \$DOCKER_USER/${DOCKER_IMAGE}:latest
-                        """
-                    }
+                    echo "Docker Hub push will be configured later"
                 }
             }
         }
 
-        // STAGE 4B: PUSH TO AWS ECR
-        // Upload image to AWS ECR (private registry for production deployment)
         stage('Push to AWS ECR') {
             steps {
                 script {
-                    echo "Pushing image to AWS ECR..."
-
-                    withCredentials([aws(credentialsId: 'aws-credentials')]) {
-                        sh """
-                            # Login to AWS ECR
-                            aws ecr get-login-password --region ${AWS_REGION} | \
-                            docker login --username AWS --password-stdin ${ECR_REGISTRY}
-
-                            # Tag for ECR
-                            docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${ECR_REGISTRY}/${ECR_REPOSITORY}:${DOCKER_TAG}
-                            docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${ECR_REGISTRY}/${ECR_REPOSITORY}:latest
-
-                            # Push to ECR
-                            docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:${DOCKER_TAG}
-                            docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:latest
-                        """
-                    }
+                    echo "AWS ECR push will be configured later"
                 }
             }
         }
+        */
 
         // STAGE 5: DEPLOY (Optional)
         // Deploy application using docker-compose
