@@ -4,7 +4,7 @@
 
 A privacy-first, Retrieval-Augmented Generation (RAG) powered medical information system featuring a complete **data engineering pipeline** that processes 759 pages of medical literature through ETL workflows, semantic embeddings, and vector indexing for intelligent, source-cited answers using local LLM inference.
 
-## 🏆 Badges
+## Badges
 
 ### Core Technologies
 [![Python](https://img.shields.io/badge/Python-3.12+-3776AB?logo=python&logoColor=white)](https://www.python.org/downloads/)
