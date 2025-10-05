@@ -1,31 +1,57 @@
-# 🏥 Medical AI Assistant
+# 🏥 Medical AI Assistant - RAG Data Pipeline
 
-> **Portfolio Project:** A production-ready RAG system demonstrating advanced LLM, vector search, and full-stack development skills.
+> **Data Engineering Portfolio Project:** Production-ready RAG system demonstrating end-to-end data pipeline design, LLM orchestration, vector database management, and MLOps best practices.
 
-A privacy-first, Retrieval-Augmented Generation (RAG) powered medical information system that processes 759 pages of medical literature to provide intelligent, source-cited answers using local LLM inference.
+A privacy-first, Retrieval-Augmented Generation (RAG) powered medical information system featuring a complete **data engineering pipeline** that processes 759 pages of medical literature through ETL workflows, semantic embeddings, and vector indexing for intelligent, source-cited answers using local LLM inference.
 
-[![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://www.python.org/downloads/)
-[![LangChain](https://img.shields.io/badge/LangChain-0.3-green.svg)](https://github.com/langchain-ai/langchain)
-[![Docker](https://img.shields.io/badge/Docker-Available-2496ED?logo=docker&logoColor=white)](https://hub.docker.com/r/beitmidrash/medical-rag-chatbot)
-[![Docker Image Size](https://img.shields.io/docker/image-size/beitmidrash/medical-rag-chatbot/latest)](https://hub.docker.com/r/beitmidrash/medical-rag-chatbot)
-[![CI/CD](https://img.shields.io/badge/CI%2FCD-Jenkins-D24939?logo=jenkins&logoColor=white)](https://jenkins.io/)
-[![Security](https://img.shields.io/badge/Security-Trivy-1904DA?logo=aqua&logoColor=white)](https://trivy.dev/)
+## 🏆 Badges
+
+### Core Technologies
+[![Python](https://img.shields.io/badge/Python-3.12+-3776AB?logo=python&logoColor=white)](https://www.python.org/downloads/)
+[![LangChain](https://img.shields.io/badge/LangChain-0.3-1C3C3C?logo=langchain&logoColor=white)](https://github.com/langchain-ai/langchain)
+[![Ollama](https://img.shields.io/badge/Ollama-Llama_3.2-000000?logo=ollama&logoColor=white)](https://ollama.com/)
+[![Flask](https://img.shields.io/badge/Flask-3.1-000000?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+
+### Data Engineering
+[![FAISS](https://img.shields.io/badge/FAISS-Vector_DB-00A98F?logo=meta&logoColor=white)](https://github.com/facebookresearch/faiss)
+[![HuggingFace](https://img.shields.io/badge/🤗_HuggingFace-Embeddings-FFD21E)](https://huggingface.co/)
+[![PyPDF](https://img.shields.io/badge/PyPDF-Data_Ingestion-red?logo=python&logoColor=white)](https://pypi.org/project/pypdf/)
+
+### DevOps & MLOps
+[![Docker](https://img.shields.io/badge/Docker-Multi--Stage-2496ED?logo=docker&logoColor=white)](https://hub.docker.com/r/beitmidrash/medical-rag-chatbot)
+[![Docker Image](https://img.shields.io/docker/image-size/beitmidrash/medical-rag-chatbot/latest?label=Image%20Size)](https://hub.docker.com/r/beitmidrash/medical-rag-chatbot)
+[![Jenkins](https://img.shields.io/badge/CI%2FCD-Jenkins-D24939?logo=jenkins&logoColor=white)](https://jenkins.io/)
+[![Trivy](https://img.shields.io/badge/Security-Trivy_Scan-1904DA?logo=aquasecurity&logoColor=white)](https://trivy.dev/)
+[![AWS ECR](https://img.shields.io/badge/AWS-ECR-232F3E?logo=amazonaws&logoColor=white)](https://aws.amazon.com/ecr/)
+
+### Testing & Quality
+[![pytest](https://img.shields.io/badge/Tests-pytest-0A9EDC?logo=pytest&logoColor=white)](https://pytest.org/)
+[![Code Style](https://img.shields.io/badge/Code_Style-Best_Practices-blueviolet)](https://github.com/Daniel-jcVv/rag-healthcare-assistant)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-Active-green.svg)](https://github.com/Daniel-jcVv/rag-healthcare-assistant)
 
 ---
 
-## 🎯 Key Highlights
+## 🎯 Data Engineering Highlights
 
-- 📊 **RAG Pipeline Implementation:** Complete document processing pipeline from PDF ingestion to vector storage
-- 🤖 **Production-Ready Architecture:** Modular design with custom exception handling and comprehensive logging
-- ⚡ **Efficient Vector Search:** FAISS indexing with semantic embeddings for fast similarity search
-- 🔧 **Local LLM Integration:** Uses Ollama with Llama 3.2 for privacy-focused, cost-free medical Q&A
-- 💬 **Modern Web UI:** Responsive chat interface with source citation display
-- 📚 **Intelligent Document Processing:** Text chunking with overlap for context preservation
-- 🚀 **CI/CD Pipeline:** Jenkins automation with Trivy security scanning and dual-registry deployment
-- 🐳 **Multi-Registry Support:** Automated push to Docker Hub (public) and AWS ECR (private)
-- 🎓 **Best Practices:** Environment-based configuration, comprehensive documentation
+### Data Pipeline Architecture
+- 📊 **ETL Pipeline:** Complete data extraction (PDF parsing), transformation (text chunking, embedding generation), and loading (FAISS vector store) workflow
+- 🗄️ **Vector Database Management:** FAISS indexing with 7,080 semantic embeddings for sub-100ms similarity search at scale
+- 📈 **Data Processing at Scale:** Processes 759 pages of unstructured medical text into queryable knowledge base
+- 🔄 **Batch & Real-time Processing:** Offline batch indexing with real-time query inference pipeline
+
+### MLOps & Infrastructure
+- 🤖 **LLM Orchestration:** LangChain framework managing retrieval-augmented generation workflows with Llama 3.2 (3B parameters)
+- 🚀 **CI/CD Pipeline:** Automated 6-stage Jenkins pipeline with security scanning, multi-registry deployment, and artifact management
+- 🐳 **Containerization:** Multi-stage Docker builds (150MB compressed) with optimized layer caching
+- ☁️ **Cloud Deployment:** Dual-registry strategy (Docker Hub public + AWS ECR private) with automated image versioning
+- 🛡️ **Data Quality & Security:** Trivy container scanning, schema validation, comprehensive logging and error handling
+
+### Data Engineering Best Practices
+- 📐 **Modular Architecture:** Separation of concerns (data ingestion, embedding, storage, retrieval, inference)
+- 🔧 **Configuration Management:** Environment-based config with python-dotenv for multi-environment deployments
+- 📝 **Comprehensive Logging:** Structured logging for pipeline monitoring and debugging
+- ✅ **Testing:** Unit and integration tests with pytest for data pipeline validation
+- 📚 **Documentation:** Architecture decision records (ADR), data flow diagrams, setup guides
 
 ---
 
@@ -47,6 +73,13 @@ A privacy-first, Retrieval-Augmented Generation (RAG) powered medical informatio
 ---
 
 ## 🎬 Demo
+
+### Live Demo - Chat Interface
+
+![Chatbot Demo](docs/images/chatbot-demo.gif)
+
+*Features: Dark/Light theme toggle, typing indicators, source citations, responsive design*
+
 
 ### CI/CD Pipeline in Action
 
@@ -116,23 +149,44 @@ Total Response Time: ~10 seconds
 
 ---
 
-## 🎯 Overview
+## 🎯 Data Engineering Overview
 
-This project implements the foundational components of an intelligent medical information retrieval system using **Retrieval-Augmented Generation (RAG)**. The system processes medical documents, creates semantic embeddings, and prepares a vector database for efficient similarity search.
+This project demonstrates **end-to-end data pipeline engineering** for unstructured text processing and semantic search. Built as a production-grade RAG (Retrieval-Augmented Generation) system, it showcases skills in **data ingestion, transformation, vector database design, LLM integration, and MLOps automation**.
 
-### Key Capabilities
+### Data Pipeline Flow
 
-- 📚 **Document Processing**: Ingests and processes medical PDF documents with intelligent chunking
-- 🔍 **Semantic Embeddings**: Converts text to vector representations using HuggingFace transformers
-- 💾 **Vector Storage**: FAISS-based vector database for fast similarity search
-- 🛠️ **Modular Architecture**: Clean separation of concerns for maintainability and extensibility
+```
+┌─────────────┐   ┌──────────────┐   ┌─────────────┐   ┌──────────────┐   ┌──────────┐
+│   Extract   │ → │  Transform   │ → │    Load     │ → │   Retrieve   │ → │ Generate │
+│  (PDF → Raw │   │ (Chunk + Vec)│   │ (FAISS DB)  │   │ (Similarity) │   │ (LLM)    │
+│     Text)   │   │              │   │             │   │   Search)    │   │          │
+└─────────────┘   └──────────────┘   └─────────────┘   └──────────────┘   └──────────┘
+   PyPDF              RecursiveText      FAISS Index      Vector Search      Llama 3.2
+   Loader             Splitter (500)     15.2 MB          <100ms            ~10s
+                      all-MiniLM-L6-v2
+                      384-dim vectors
+```
 
-### Problem Statement
+### Data Engineering Capabilities
 
-Medical information is vast and complex. This system provides the infrastructure to:
-- Process large medical documents into searchable knowledge bases
-- Enable semantic search over medical content
-- Prepare foundation for AI-powered medical Q&A systems
+- 📚 **Unstructured Data Ingestion**: PDF parsing with metadata extraction and text normalization
+- 🔄 **Data Transformation**: Intelligent text chunking with configurable overlap for context preservation
+- 🧮 **Feature Engineering**: Semantic embeddings using transformer models (384-dimensional dense vectors)
+- 💾 **Vector Database Design**: FAISS flat index optimized for similarity search on 7K+ vectors
+- 🔍 **Retrieval System**: K-nearest neighbors search with relevance scoring
+- 🤖 **LLM Integration**: Prompt engineering and context assembly for augmented generation
+- 📊 **Data Validation**: Schema validation, source tracking, and quality assurance
+
+### Problem Statement (Data Engineering Perspective)
+
+**Challenge:** Medical knowledge is locked in unstructured documents (759 pages of dense text). Traditional keyword search fails to capture semantic meaning, and manual information retrieval is slow and error-prone.
+
+**Solution:** Build a scalable data pipeline that:
+1. **Extracts** structured data from unstructured PDFs
+2. **Transforms** text into semantic vectors for similarity comparison
+3. **Loads** vectors into optimized index for sub-second retrieval
+4. **Serves** intelligent answers by combining retrieval and generation
+5. **Automates** the entire workflow with CI/CD for continuous updates
 
 ---
 
