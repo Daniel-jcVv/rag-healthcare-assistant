@@ -344,9 +344,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
+
 ## 👤 Author
 
 **Daniel Garcia Belman**
+Data Engineer | Python Developer | Big Data
 - Email: danielgb331@outlook.com
 - GitHub: [@Daniel-jcVv](https://github.com/Daniel-jcVv/Daniel-jcVv)
 - LinkedIn: [My LinkenIn Profile](www.linkedin.com/in/daniel-garcía-belman-99a298aa)
@@ -354,10 +356,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 
-## 📬 Contact & Support
+## 🙏 Acknowledgments
 
-- 📧 **Email:** danielgb331@outlook.com
-- 🐛 **Issues:** [GitHub Issues](https://github.com/Daniel-jcVv/rag-healthcare-assistant/issues)
+>**Ora et labora, ahora**
+>
+>**Soli Deo gloria**
+>
+>My gratitude to the open-source community for generously sharing their knowledge.
+
 
 ---
 
